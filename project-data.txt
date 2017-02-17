@@ -1,0 +1,5 @@
+S8, TSS, "happy 1"
+S6, TSS, "frown"
+10, SNT, 45
+20, SNT, 1000, "smile"
+S9, TSS, "sad 1"
