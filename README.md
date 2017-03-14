@@ -1,3 +1,8 @@
-# hello-world
-testing github for the first time.
-Hello, I am Lonnie.  I work at the TC in AC for the FAA on all kinds of other acronyms.  I like portals and rocks!
+# data-project
+Located here is a data file called project-data.txt, the reverse of the project name, and the task is to read the file and sort by records  by color.
+
+Bonus for GUI
+
+I did it with clojure.  You should do it in java.
+
+enjoy!
