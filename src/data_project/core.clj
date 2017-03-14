@@ -1,5 +1,5 @@
 (ns data-project.core
-  (:gen-class))
+      (:gen-class))
 
 (require '[clojure.string :as str])
 (require '[clojure.java.io :as io])
