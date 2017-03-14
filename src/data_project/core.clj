@@ -1,11 +1,11 @@
-(ns data-manipuation.core
+(ns data-project.core
   (:gen-class))
 
 (require '[clojure.string :as str])
 (require '[clojure.java.io :as io])
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "this program will read, sort and display the test data"
   [& args]
   (println "use read-data file in the repl"))
 
