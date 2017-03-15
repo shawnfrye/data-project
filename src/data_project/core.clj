@@ -23,5 +23,5 @@
 (defn read-data 
   [file]
   (with-open [rdr (io/reader file)]
-         (doall(map processLine (line-seq rdr))))
+         (reduce merge {} (doall(map processLine (line-seq rdr)))))
   )
