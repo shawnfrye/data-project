@@ -10,22 +10,6 @@
   (println "use read-data file in the repl"))
 
 
-
-(defn processLine  
-  [line]
-  (println (str "test:" line (empty? line)))
-  (if (empty? line)
-      (println "skip") 
-   (let  [splitline (str/split line #":")]
-        { (keyword (nth splitline 0)) (nth splitline 1)})
-  ))
-
-(defn read-data 
-  [file]
-  (with-open [rdr (io/reader file)]
-         (reduce merge {} (doall(map processLine (line-seq rdr)))))
-  )
-
 (defn load 
   [file]
   (str/split (slurp file) #"\n"))
