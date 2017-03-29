@@ -13,3 +13,11 @@ I feel the need to mention the file name is reversed from the project.  data-pro
 I did it with clojure.  You should do it in java.
 
 enjoy!
+
+
+##cloud9 notes:
+
+###update to oracle java
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-set-default.
