@@ -10,7 +10,7 @@
   (println "use read-data file in the repl"))
 
 
-(defn load 
+(defn load-txt 
   [file]
   (str/split (slurp file) #"\n"))
 
@@ -23,7 +23,20 @@
   )
 )
 
-(defn mytest 
+(defn read-data 
   [file]
-  (remove nil? (map makerecord (partition-by empty? (load file)) ))
+  (remove nil? (map makerecord (partition-by empty? (load-txt file)) ))
 )
+
+(defn count-by-color
+  [file]
+  (for [g (group-by :Color (read-data file))]
+        (let [g-name (first g) values (second g) ]
+             (println g-name " " (count values)))
+  )
+)
+
+
+
+
+
