@@ -2,6 +2,7 @@
 (:require [clojure.string :as str])
 (:require [clojure.java.io :as io])
 (:require [hiccup.core :as h])
+(:require [hiccup.page :as hp])
       (:gen-class))
 
 (defn load-txt 
@@ -30,15 +31,14 @@
   margin:5px;
   border:1px solid rgba(0, 0, 0, .2);background-color:")
 
-(defn box [color] (assoc {:class "box"} :style (str box-style color)))
+(defn box [color] (assoc {:class "box"} :style (str box-style color) :onclick (str "alert('" color "')")))
 
-(defn test-html [name] (h/html [:html 
- [:div {:class "input-color"}[:input {:type "text" :value "Orange"}]
-                             [:div (box "green") ]
-                             [:div (box "red") ]
-                             [:div (box "blue") ]
-                             [:div (box "purple") ]
-                             ]]))
+(defn test-html [name] (hp/html5 [:html
+  [:div {:class "input-color"}
+    [:div (box "green")]
+    [:div (box "red") ]
+    [:div (box "blue") ]
+    [:div (box "purple") ]]]))
 
 (defn -main
   "this program will read, sort and display the test data"
