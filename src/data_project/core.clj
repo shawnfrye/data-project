@@ -31,19 +31,15 @@
   margin:5px;
   border:1px solid rgba(0, 0, 0, .2);background-color:")
 
-(defn box [color] (assoc {:class "box"} :style (str box-style color) :onclick (str "alert('" color "')")))
+(defn box [color] [:div (assoc {:class "box"} :style (str box-style color) :onclick (str "alert('" color "')"))])
 
-(defn test-html [name] (hp/html5 [:html
-  [:div {:class "input-color"}
-    [:div (box "green")]
-    [:div (box "red") ]
-    [:div (box "blue") ]
-    [:div (box "purple") ]]]))
+(defn test-html [color] (hp/html5 
+    (into [:div] (map box color )))) 
 
 (defn -main
   "this program will read, sort and display the test data"
   [& args]
-  (do 
+  (do
   (println "reading data...")
-  (spit "test.html" (test-html "lonnie"))))
-  ;;(read-data (first args))))
+  ;;(keys (group-by :Color (read-data (first args)))))
+  (spit "test.html" (test-html (keys (group-by :Color (read-data (first args))))))))
