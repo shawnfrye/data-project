@@ -44,7 +44,7 @@
 
 (defn list-items 
   [records]
-  (reduce concat []  (map vector (map :Name records) (repeat [:br]) )))
+  (mapcat (fn [record] [(:Name record) [:br]]) records ))
 
 (defn create-html 
 "returns a static html page which can display the data grouped by color."
@@ -55,7 +55,7 @@
       (for [g (group-by :Color data)]
         (let [color (first g) values (second g) ]
           [:div {:id color} ]
-          (into [:div {:class color}] (list-items values))))))) 
+          (into [:div {:class color} ] [[:font {:color color} (list-items values)]])))))) 
 
 (defn -main
   "this program will read, sort and display the test data"
