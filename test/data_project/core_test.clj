@@ -15,3 +15,9 @@
 (deftest box-test
   (testing "box html test"
     (is (= (box "blue") blue-box))))
+
+(def listofitems `("Fred" [:br] "Joe" [:br]))
+
+(deftest list-items-test
+  (testing "item list html test"
+    (is (= (list-items [{:Name "Fred"} {:Name "Joe"}]) listofitems))))

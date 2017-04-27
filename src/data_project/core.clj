@@ -42,11 +42,20 @@
   [color] 
   [:div (assoc {:class "box"} :style (str box-style color) :onclick (str "alert('" color "')"))])
 
+(defn list-items 
+  [records]
+  (reduce concat []  (map vector (map :Name records) (repeat [:br]) )))
+
 (defn create-html 
 "returns a static html page which can display the data grouped by color."
   [data] 
   (let [colors (keys (group-by :Color data))]
-  (hp/html5 (into [:div] (map box colors )))))
+    (hp/html5 
+      (into [:div] (map box colors ))
+      (for [g (group-by :Color data)]
+        (let [color (first g) values (second g) ]
+          [:div {:id color} ]
+          (into [:div {:class color}] (list-items values))))))) 
 
 (defn -main
   "this program will read, sort and display the test data"
