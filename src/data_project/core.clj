@@ -50,7 +50,10 @@
 "returns a static html page which can display the data grouped by color."
   [data] 
   (let [colors (keys (group-by :Color data))]
-    (hp/html5 
+    (hp/html5
+      [:head
+        [:title "Data-Project Example in Clojure"]
+        (hp/include-js "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")]
       (into [:div] (map box colors ))
       (for [g (group-by :Color data)]
         (let [color (first g) values (second g) ]
