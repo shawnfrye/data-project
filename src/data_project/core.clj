@@ -1,8 +1,7 @@
 (ns data-project.core
 (:require [clojure.string :as str])
 (:require [clojure.java.io :as io])
-(:require [hiccup.core :as h])
-(:require [hiccup.page :as hp])
+(:require [hiccup.page :as page])
       (:gen-class))
 
 (defn load-txt 
@@ -37,10 +36,15 @@
 (def box-style 
   "width:20px;height:20px; margin:5px; border:1px solid rgba(0, 0, 0, .2);background-color:")
 
+(defn alertfn [color]  (str "alert('" color "')"))
+
+(defn showhide [id] [:script (str "$( \"div[id='" id "-box']\" ).click(function() {
+  $( \"div[id='" id "']\" ).toggle(\"slow\");});")])
+
 (defn box 
 "returns a 20x20px colored div and alert. color arg is used to color the box and specify the group to show."
   [color] 
-  [:div (assoc {:class "box"} :style (str box-style color) :onclick (str "alert('" color "')"))])
+  [:div (assoc {:class "box col-sm-12" :id (str color "-box")} :style (str box-style color))])
 
 (defn list-items 
   [records]
@@ -50,15 +54,24 @@
 "returns a static html page which can display the data grouped by color."
   [data] 
   (let [colors (keys (group-by :Color data))]
-    (hp/html5
+    (page/html5
       [:head
         [:title "Data-Project Example in Clojure"]
-        (hp/include-js "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")]
-      (into [:div] (map box colors ))
+        (page/include-css "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+        (page/include-js "https://code.jquery.com/jquery-1.10.2.js")
+        (page/include-js "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")]
+
+      ;;show buttons
+      [:div {:class "container"} 
+        (into [:div {:class "row"}] (map box colors ))]
+
+      ;;bunch of javascript to show or hide colors
+      (map showhide colors)
+
+      ;;list the names of the people in color group 
       (for [g (group-by :Color data)]
         (let [color (first g) values (second g) ]
-          [:div {:id color} ]
-          (into [:div {:class color} ] [[:font {:color color} (list-items values)]])))))) 
+          (into [:div {:id color} ] [[:font {:color color} (list-items values)]])))))) 
 
 (defn -main
   "this program will read, sort and display the test data"
