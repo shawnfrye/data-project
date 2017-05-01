@@ -10,7 +10,7 @@
   (testing "take a list of : delimited strings return a  map"
     (is (= (makerecord ["Name:test mctest" "Color:orange"]) {:Name "test mctest" :Color "orange"}))))
 
-(def blue-box [:div {:class "box", :style "width:20px;height:20px; margin:5px; border:1px solid rgba(0, 0, 0, .2);background-color:blue", :onclick "alert('blue')"}])
+(def blue-box [:div {:class "box col-sm-12" :id "blue-box" :style "width:20px;height:20px; margin:5px; border:1px solid rgba(0, 0, 0, .2);background-color:blue"}])
 
 (deftest box-test
   (testing "box html test"
