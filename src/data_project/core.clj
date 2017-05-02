@@ -36,8 +36,6 @@
 (def box-style 
   "width:20px;height:20px; margin:5px; border:1px solid rgba(0, 0, 0, .2);background-color:")
 
-(defn alertfn [color]  (str "alert('" color "')"))
-
 (defn showhide [id] [:script (str "$( \"div[id='" id "-box']\" ).click(function() {
   $( \"div[id='" id "']\" ).toggle(\"slow\");});")])
 
@@ -71,7 +69,7 @@
       ;;list the names of the people in color group 
       (for [g (group-by :Color data)]
         (let [color (first g) values (second g) ]
-          (into [:div {:id color} ] [[:font {:color color} (list-items values)]])))))) 
+          (into [:div {:id color :style "display:none"} ] [[:font {:color color} (list-items values)]])))))) 
 
 (defn -main
   "this program will read, sort and display the test data"
