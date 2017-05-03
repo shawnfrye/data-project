@@ -26,13 +26,6 @@
   [file]
   (remove nil? (map makerecord (partition-by empty? (load-txt file)) )))
 
-(defn count-by-color
-"test function which will print out the number of records in each color."
-  [file]
-  (for [g (group-by :Color (read-data file))]
-        (let [g-name (first g) values (second g) ]
-             (println g-name " " (count values)))))
-
 (def box-style 
   "width:20px;height:20px; margin:5px; border:1px solid rgba(0, 0, 0, .2);background-color:")
 
