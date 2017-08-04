@@ -24,7 +24,7 @@
 (defn read-data 
 "reads the file and return a list of records."
   [file]
-  (remove nil? (map makerecord (partition-by empty? (load-txt file)) )))
+  (keep makerecord (partition-by empty? (load-txt file)) ))
 
 (def box-style 
   "width:20px;height:20px; margin:5px; border:1px solid rgba(0, 0, 0, .2);background-color:")
