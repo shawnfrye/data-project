@@ -7,12 +7,16 @@
 
   ;;First initiate the basic elements of a THREE scene
   (let [scene    (js/THREE.Scene.)
+        view-angle 45
+        aspect     1
+        near       1
+        far        1000
         p-camera (js/THREE.PerspectiveCamera.
                    view-angle aspect near far)
         box      (js/THREE.BoxGeometry.
                    200 200 200)
         mat      (js/THREE.MeshBasicMaterial.
-                   (js-obj "color" 0xff0000
+                   (js-obj "color" 0x550055
                            "wireframe" true))
         mesh     (js/THREE.Mesh. box mat)
         renderer (js/THREE.WebGLRenderer.)]
@@ -28,6 +32,9 @@
     (.add scene p-camera)
     (.add scene mesh)
     (.appendChild js/document.body (.-domElement renderer))
+    (js/addTheFloor scene)
+    (js/addLights scene)
+    (js/maketheskycube scene)
 
     ;Kick off the animation loop updating
     (defn render []
