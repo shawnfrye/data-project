@@ -1,5 +1,4 @@
-(ns data-project.core 
-  (:require cljsjs.three))
+(ns data-project.core )
  
 (enable-console-print!)
 
@@ -7,9 +6,9 @@
 
   ;;First initiate the basic elements of a THREE scene
   (let [scene    (js/THREE.Scene.)
-        view-angle 45
+        view-angle 75
         aspect     1
-        near       1
+        near       0.1
         far        1000
         p-camera (js/THREE.PerspectiveCamera.
                    view-angle aspect near far)
@@ -19,14 +18,17 @@
                    (js-obj "color" 0x550055
                            "wireframe" true))
         mesh     (js/THREE.Mesh. box mat)
-        renderer (js/THREE.WebGLRenderer.)]
+        renderer (js/THREE.WebGLRenderer.)
+        controls (js/THREE.OrbitControls. p-camera (aget renderer "domElement" ))
+        ]
 
     ;;Change the starting position of cube and camera
     (aset p-camera "name" "p-camera")
-    (aset p-camera "position" "z" 500)
+    (aset p-camera "position" "z" 50)
     (aset mesh "rotation" "x" 45)
     (aset mesh "rotation" "y" 0)
     (.setSize renderer 500 500)
+    (aset controls "target" (THREE.Vector3. 0 0 0))
 
     ;;Add camera, mesh and box to scene and then that to DOM node.
     (.add scene p-camera)
