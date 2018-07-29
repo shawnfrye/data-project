@@ -92,7 +92,7 @@ function maketheskycube(scene) {
 function add3dText(data, scene) {
   var mesh;
   var textmat = new THREE.MeshPhongMaterial({
-    color: 0x00dd00,
+    color: data.color,
     specular: 0x999999,
     shininess: 0,
     shading: THREE.SmoothShading
