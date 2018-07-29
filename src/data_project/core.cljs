@@ -37,6 +37,14 @@
     (js/addTheFloor scene)
     (js/addLights scene)
     (js/maketheskycube scene)
+    (let [data #js {:text   "llsouder"
+                     :size   10
+                     :height 3
+                     :x      10
+                     :y      10
+                     :z      10
+                     }]
+          (js/add3dText data scene))
 
     ;Kick off the animation loop updating
     (defn render []
