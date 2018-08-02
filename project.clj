@@ -9,7 +9,7 @@
   :min-lein-version "2.7.1"
 
   :dependencies [[org.clojure/clojure "1.9.0"]
-                 ;;[cljsjs/three "0.0.91-0"]
+                 [reagent "0.8.1"]
                  [org.clojure/clojurescript "1.10.238"]
                  [org.clojure/core.async  "0.4.474"]]
 

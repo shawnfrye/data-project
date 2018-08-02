@@ -1,4 +1,6 @@
-(ns data-project.core)
+(ns data-project.core
+  (:require [reagent.core :refer [render atom]]
+            [data-project.upload :as up]))
 
 (enable-console-print!)
 
@@ -25,12 +27,12 @@
     (.add scene p-camera)
     (.appendChild js/document.body (.-domElement renderer))
     ;Kick off the animation loop updating
-    (defn render []
+    (defn render-3d []
       (.render renderer scene p-camera))
 
     (defn animate []
       (.requestAnimationFrame js/window animate)
-      (render))
+      (render-3d))
 
     (animate)))
 (defn setup
@@ -60,3 +62,5 @@
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
   )
+
+(render [up/home-page] (.getElementById js/document "app"))
