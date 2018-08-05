@@ -1,6 +1,8 @@
 (ns data-project.upload
   (:require [reagent.core :refer [render atom]]
-            [cljs.core.async :refer [put! chan <! >!]])
+            [cljs.core.async :refer [put! chan <! >!]]
+            [data-project.parse :as p]
+            [clojure.string :as str])
   (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
 
 ;; derived from https://mrmcc3.github.io/post/csv-with-clojurescript/
@@ -11,7 +13,7 @@
 
 ;; atom to store file contents
 
-(def file-data (atom " "))
+(defonce file-data (atom " "))
 
 ;; transducer to stick on a core-async channel to manipulate all the weird javascript
 ;; event objects --- basically just takes the array of file objects or something
@@ -52,14 +54,22 @@
 (defn input-component []
   [:input {:type "file" :id "file" :accept ".txt" :name "file" :on-change put-upload}])
 
-;; ------------------------- 
-;; Views
+(defn process-data
+  [text]
+  [:div
+   (p/parse-data text )])
 
+;;(filter #(str/starts-with? % "Name") (str/split-lines (str/join text))))])
+;; -------------------------
+;; Views
 (defn home-page []
   [:div
    [:h2 "Data-Project GL"]
    [input-component]
-   [:p (map clojure.string/upper-case @file-data)] ; render the file contents.
+   (js/console.log "file-data" @file-data)
+   (js/console.log "map" (map str/capitalize @file-data))
+   (js/console.log "partition" (partition-by empty? (str/capitalize @file-data)))
+   ;;[:div (process-data @file-data)] ; render the file contents.
    ])
 
 ;; -------------------------
