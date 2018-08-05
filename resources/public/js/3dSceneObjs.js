@@ -23,10 +23,10 @@ function addLights(scene) {
 
   // dirLight.shadowCameraNear = 2;
   // dirLight.shadowCameraFar = 5;
-  dirLight.shadowCameraLeft = -100;
-  dirLight.shadowCameraRight = 100;
-  dirLight.shadowCameraTop = 100;
-  dirLight.shadowCameraBottom = -100;
+  dirLight.shadow.camera.left = -100;
+  dirLight.shadow.camera.right = 100;
+  dirLight.shadow.camera.top = 100;
+  dirLight.shadow.camera.bottom = -100;
 
   scene.add(dirLight);
 
@@ -95,7 +95,7 @@ function add3dText(data, scene) {
     color: data.color,
     specular: 0x999999,
     shininess: 0,
-    shading: THREE.SmoothShading
+    flatShading: THREE.SmoothShading
   });
   var loader = new THREE.FontLoader();
   loader.load('js/helvetiker_regular.typeface.json', function(font) {
@@ -160,8 +160,7 @@ function addGary(scene) {
 
   // After loading JSON from our file, we add it to the scene
   function addModelToScene(geometry, materials) {
-    var material = new THREE.MeshFaceMaterial(materials);
-    var model = new THREE.Mesh(geometry, material);
+    var model = new THREE.Mesh(geometry, materials);
     model.scale.set(2, 2, 2);
     model.castShadow = true;
     model.position.set(-40, -2, -20);
@@ -189,5 +188,5 @@ function checkerBoard(segments) {
     }
   }
 
-  return new THREE.Mesh(geometry, new THREE.MeshFaceMaterial(materials))
+  return new THREE.Mesh(geometry, materials)
 }

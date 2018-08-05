@@ -33,11 +33,10 @@
     (defn animate []
       (.requestAnimationFrame js/window animate)
       (render-3d))
-
     (animate)))
+
 (defn setup
   []
-
   (js/addTheFloor scene)
   (js/addLights scene)
   (js/maketheskycube scene))
@@ -51,9 +50,13 @@
                   :z      10
                   }]
     (js/add3dText data scene))
+
 ;; define your app data so that it doesn't get over-written on reload
-(init)
-(defonce app-state (setup))
+(defonce app-state
+         (do
+           (init)
+           (setup)
+           :done))
 
 
 
