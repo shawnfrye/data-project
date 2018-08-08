@@ -38,15 +38,14 @@
 (defn setup
   []
   (js/addTheFloor scene)
-  (js/addLights scene)
-  (js/maketheskycube scene))
+  (js/addLights scene))
 
   (let [data #js {:text   "llsouder"
                   :size   10
                   :height 3
                   :color  0xaa00aa
                   :x      0
-                  :y      40
+                  :y      20
                   :z      10
                   }]
     (js/add3dText data scene))
