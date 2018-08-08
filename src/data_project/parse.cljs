@@ -10,25 +10,17 @@
 (defn makerecord
   "makes a record from a list of strings.  Each string is a : delimited kv pair."
   [thedata]
-  (println "thedata=" thedata)
   (if (> (count thedata) 1)
     (reduce merge {} (map makekvpair thedata))))
 
 (defn parse-data
   "parse data into a list of records."
   [text]
-
-  (js/console.log "text=" text)
-  (js/console.log "joined text=" (str/join text))
-  (js/console.log "text type=" (str (type text)))
   (keep makerecord (partition-by empty? (str/split-lines text))))
 
-;;(defn list-colors
-;;[data]
-;;(let [colors (keys (group-by :Color data))]
-    ;;show buttons
-;;    [:div {:class "container"}
-;;     (into [:div {:class "row"}] (map box colors ))]))
+(defn list-colors
+  [data]
+  (keys (group-by :Color data)))
 
 ;;(defn group-by-color
   ;;[data]

@@ -1,5 +1,5 @@
 (ns data-project.upload
-  (:require [reagent.core :refer [render atom]]
+  (:require [reagent.core :as r]
             [cljs.core.async :refer [put! chan <! >!]]
             [data-project.parse :as p]
             [clojure.string :as str])
@@ -13,7 +13,7 @@
 
 ;; atom to store file contents
 
-(defonce file-data (atom " "))
+(defonce file-data (r/atom " "))
 
 ;; transducer to stick on a core-async channel to manipulate all the weird javascript
 ;; event objects --- basically just takes the array of file objects or something
@@ -59,6 +59,12 @@
   [:div
    (p/parse-data text )])
 
+(defn button
+  "Make a colorful button that will show the all the names which are in this
+  color group."
+  [color]
+  [:input {:type "button" :value "show" :onclick str :style {:background color}}])
+
 ;;(filter #(str/starts-with? % "Name") (str/split-lines (str/join text))))])
 ;; -------------------------
 ;; Views
@@ -66,17 +72,14 @@
   [:div
    [:h2 "Data-Project GL"]
    [input-component]
-   (js/console.log "file-data" @file-data)
-   (js/console.log "map" (map str/capitalize @file-data))
-   (js/console.log "partition" (partition-by empty? (str/capitalize @file-data)))
-   ;;[:div (process-data @file-data)] ; render the file contents.
-   ])
+   [:div (map button
+              (p/list-colors (p/parse-data @file-data)))]])
 
 ;; -------------------------
 ;; Initialize app
 
 (defn mount-root []
-  (render [home-page] (.getElementById js/document "app")))
+  (r/render [home-page] (.getElementById js/document "app")))
 
 (defn init! []
   (mount-root))
