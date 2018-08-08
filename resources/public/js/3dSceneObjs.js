@@ -102,6 +102,7 @@ function add3dText(data, scene) {
 
     var geometry = new THREE.TextGeometry(data.text, {
       font: font,
+      name: data.name,
       size: data.size,
       height: data.height,
       curveSegments: data.curveSegments,
@@ -113,18 +114,16 @@ function add3dText(data, scene) {
     geometry.center();
     mesh = new THREE.Mesh(geometry, textmat);
     mesh.position.set(data.x, data.y, data.z);
+    mesh.name=data.name;
     scene.add(mesh);
     mesh.castShadow = true;
   });
+  return mesh;
+}
 
-  return {
-    rotate: function() {
-      //mesh.rotation.y += .02;
-    },
-    meshReady: function() {
-      return typeof mesh !== 'undefined' && typeof mesh.rotation !== 'undefined';
-    }
-  }
+function remove(object, scene) {
+    var selectedObject = scene.getObjectByName(object.name, true);
+    scene.remove( selectedObject );
 }
 
 function makeSomeRotatingCubes(scene) {

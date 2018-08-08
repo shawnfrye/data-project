@@ -40,14 +40,15 @@
   (js/addTheFloor scene)
   (js/addLights scene))
 
-  (let [data #js {:text   "llsouder"
-                  :size   10
-                  :height 3
-                  :color  0xaa00aa
-                  :x      0
-                  :y      20
-                  :z      10
-                  }]
+(let [data #js {:text   "test"
+                :name   "otherthing"
+                :size   10
+                :height 3
+                :color  0xaa00aa
+                :x      0
+                :y      10
+                :z      10}]
+
     (js/add3dText data scene))
 
 ;; define your app data so that it doesn't get over-written on reload
