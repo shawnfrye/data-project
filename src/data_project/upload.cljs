@@ -1,7 +1,6 @@
 (ns data-project.upload
   (:require [reagent.core :as r]
             [cljs.core.async :refer [put! chan <! >!]]
-            [data-project.parse :as p]
             [clojure.string :as str])
   (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
 
@@ -53,33 +52,3 @@
 ;; input component to allow users to upload file.
 (defn input-component []
   [:input {:type "file" :id "file" :accept ".txt" :name "file" :on-change put-upload}])
-
-(defn process-data
-  [text]
-  [:div
-   (p/parse-data text )])
-
-(defn button
-  "Make a colorful button that will show the all the names which are in this
-  color group."
-  [color]
-  [:input {:type "button" :value "show" :onclick str :style {:background color}}])
-
-;;(filter #(str/starts-with? % "Name") (str/split-lines (str/join text))))])
-;; -------------------------
-;; Views
-(defn home-page []
-  [:div
-   [:h2 "Data-Project GL"]
-   [input-component]
-   [:div (map button
-              (p/list-colors (p/parse-data @file-data)))]])
-
-;; -------------------------
-;; Initialize app
-
-(defn mount-root []
-  (r/render [home-page] (.getElementById js/document "app")))
-
-(defn init! []
-  (mount-root))

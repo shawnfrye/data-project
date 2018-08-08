@@ -1,6 +1,6 @@
 (ns data-project.core
   (:require [reagent.core :refer [render atom]]
-            [data-project.upload :as up]))
+            [data-project.page :as page]))
 
 (enable-console-print!)
 
@@ -52,7 +52,7 @@
     (js/add3dText data scene))
 
 ;; define your app data so that it doesn't get over-written on reload
-(defonce app-state
+(defonce startup-state
          (do
            (init)
            (setup)
@@ -66,4 +66,4 @@
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
   )
 
-(render [up/home-page] (.getElementById js/document "app"))
+(render [page/home-page] (.getElementById js/document "app"))
