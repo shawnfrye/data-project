@@ -19,8 +19,12 @@
   (keep makerecord (partition-by empty? (str/split-lines text))))
 
 (defn list-colors
-  [data]
-  (keys (group-by :Color data)))
+  [p-data]
+  (keys (group-by :Color p-data)))
+
+(defn get-names
+  [color p-data]
+  (map :Name (filter #(= (:Color %) color) p-data)))
 
 ;;(defn group-by-color
   ;;[data]

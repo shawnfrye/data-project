@@ -1,6 +1,5 @@
 (ns data-project.scene
-  (:require [reagent.core :refer [render atom]]
-            [data-project.page :as page]))
+  (:require [reagent.core :refer [render atom]]))
 
 (enable-console-print!)
 
@@ -41,16 +40,13 @@
   (js/addLights scene))
 
 (def text-template {:text   "test"
-                    :name   "otherthing"
+                    :name   "test"
                     :size   10
                     :height 3
                     :color  0xaa00aa
                     :x      0
                     :y      10
                     :z      10})
-
-(let [data (clj->js text-template)]
-  (js/add3dText data scene))
 
 (defn display-text
   [text color y z]
@@ -60,9 +56,9 @@
                          :y y
                          :z z
                          :color color)) scene))
-
-(display-text "Test 2" 0xaa0000 50 -100)
-
+(defn remove-text
+  [name]
+  (js/remove (clj->js {:name name}) scene))
 
 ;; define your app data so that it doesn't get over-written on reload
 (defonce startup-state

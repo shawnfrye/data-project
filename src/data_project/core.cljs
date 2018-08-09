@@ -1,6 +1,6 @@
 (ns data-project.core
   (:require [reagent.core :refer [render atom]]
-            ;;Including this causes the scene-setup.
+            ;;Including scene causes the scene-setup.
             [data-project.scene :as scene]
             [data-project.page :as page]))
 
