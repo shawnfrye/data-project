@@ -20,7 +20,7 @@
 
     ;;Change the starting position of cube and camera
     (aset p-camera "name" "p-camera")
-    (aset p-camera "position" "z" 50)
+    (aset p-camera "position" "z" 100)
     (aset controls "target" (THREE.Vector3. 0 0 0))
 
     ;;Add camera, mesh and box to scene and then that to DOM node.
