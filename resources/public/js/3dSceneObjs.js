@@ -170,7 +170,7 @@ function addGary(scene) {
 function checkerBoard(segments) {
   //Build a checkerboard colored square plane with "segments"
   //number of tiles per side. Using three.js v62
-  var geometry = new THREE.PlaneGeometry(100, 100, segments, segments);
+  var geometry = new THREE.PlaneGeometry(200, 200, segments, segments);
   var materialEven = new THREE.MeshBasicMaterial({
     color: 0xccccfc
   });

@@ -13,3 +13,4 @@
   )
 
 (render [page/home-page] (.getElementById js/document "app"))
+(scene/add-scene (.getElementById js/document "app"))

@@ -6,7 +6,7 @@
 (defonce scene (js/THREE.Scene.))
 (defonce renderer
          (let [renderer (js/THREE.WebGLRenderer.)]
-           (.setSize renderer 500 500)
+           (.setSize renderer 700 700)
            renderer))
 
 (defonce p-camera (js/THREE.PerspectiveCamera.
@@ -24,7 +24,6 @@
 
     ;;Add camera, mesh and box to scene and then that to DOM node.
     (.add scene p-camera)
-    (.appendChild js/document.body (.-domElement renderer))
     ;Kick off the animation loop updating
     (defn render-3d []
       (.render renderer scene p-camera))
@@ -66,3 +65,7 @@
            (init)
            (setup)
            :done))
+(defn add-scene
+  "element is a js element, e.g. js/document.body"
+  [element]
+  (.appendChild element (.-domElement renderer)) )
