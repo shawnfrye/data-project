@@ -8,7 +8,8 @@
 
 (enable-console-print!)
 
-(def app-state (r/atom #{}))
+(defonce app-state (r/atom #{}))
+(defonce bg-color (r/atom #{"0xCCC"}))
 
 (defn show-text
   [color]
@@ -16,12 +17,14 @@
     (doall
      (map
        #(scene/display-text % (color/name-to-hex color) (rand-int 100) (- (rand-int 100) 70)) names)))
+  (reset! bg-color #{color})
   (swap! app-state conj color))
 
 (defn remove-text
   [color]
   (let [names (parse/get-names color (parse/parse-data @upload/file-data))]
     (doall (map #(scene/remove-text % ) names)))
+  (reset! bg-color #{"gray"})
   (swap! app-state disj color))
 
 (defn toggle
@@ -39,7 +42,7 @@
 ;; -------------------------
 ;; Views
 (defn home-page []
-  [:div
+  [:div {:style {:background-color @bg-color}}
    [:h2 "Data-Project GL"]
    [upload/input-component]
    [:div (map button
