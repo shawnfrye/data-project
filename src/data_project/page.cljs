@@ -8,25 +8,33 @@
 
 (enable-console-print!)
 
-(defonce app-state (r/atom { }))
+(def app-state (r/atom #{}))
 
 (defn show-text
   [color]
   (let [names (parse/get-names color (parse/parse-data @upload/file-data))]
     (doall
      (map
-       #(scene/display-text % (color/name-to-hex color) (rand-int 100) (- (rand-int 100) 70)) names))))
+       #(scene/display-text % (color/name-to-hex color) (rand-int 100) (- (rand-int 100) 70)) names)))
+  (swap! app-state conj color))
 
 (defn remove-text
   [color]
   (let [names (parse/get-names color (parse/parse-data @upload/file-data))]
-  (doall (map #(scene/remove-text % ) names))))
+    (doall (map #(scene/remove-text % ) names)))
+  (swap! app-state disj color))
+
+(defn toggle
+  [color]
+  (if (contains? @app-state color)
+    (remove-text color)
+    (show-text color)))
 
 (defn button
   "Make a colorful button that will show the all the names which are in this
   color group."
   [color]
-  [:input {:key color :type "button" :value "show" :onClick #(show-text color) :style {:background color}}])
+  [:input {:key color :type "button" :value "show" :onClick #(toggle color) :style {:background color}}])
 
 ;; -------------------------
 ;; Views
