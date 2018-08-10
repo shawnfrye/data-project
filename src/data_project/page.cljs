@@ -1,9 +1,12 @@
 (ns data-project.page
   (:require [reagent.core :as r]
+            [data-project.color :as color]
             [data-project.parse :as parse]
             [data-project.scene :as scene]
             [data-project.upload :as upload]
             [clojure.string :as str]))
+
+(enable-console-print!)
 
 (defonce app-state (r/atom { }))
 
@@ -12,7 +15,7 @@
   (let [names (parse/get-names color (parse/parse-data @upload/file-data))]
     (doall
      (map
-       #(scene/display-text % 0x00dd00 (rand-int 100) (- (rand-int 100) 70)) names))))
+       #(scene/display-text % (color/name-to-hex color) (rand-int 100) (- (rand-int 100) 70)) names))))
 
 (defn remove-text
   [color]
