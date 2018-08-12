@@ -1,6 +1,7 @@
 (ns data-project.page
   (:require [reagent.core :as r]
             [data-project.color :as color]
+            [data-project.dog :as dog]
             [data-project.parse :as parse]
             [data-project.scene :as scene]
             [data-project.upload :as upload]
@@ -39,11 +40,18 @@
   [color]
   [:input {:key color :type "button" :value "show" :onClick #(toggle color) :style {:background color}}])
 
+(defn dog-button
+  []
+  [:input {:key "dog" :type "button" :value "dog?" :onClick dog/update!}])
+  
+
 ;; -------------------------
 ;; Views
 (defn home-page []
   [:div {:style {:background-color @bg-color}}
    [:h2 "Data-Project GL"]
    [upload/input-component]
+   [dog-button]
+   (when (not-empty @dog/image) [:img {:src @dog/image}])
    [:div (map button
               (parse/list-colors (parse/parse-data @upload/file-data)))]])
