@@ -10,6 +10,7 @@
 
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [reagent "0.8.1"]
+                 [cljs-http "0.1.45"]
                  [org.clojure/clojurescript "1.10.238"]
                  [org.clojure/core.async  "0.4.474"]]
 
