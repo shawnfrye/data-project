@@ -1,6 +1,6 @@
 (ns data-project.online)
 
-(defn data [
+(def data [
  {
   :Name "Brenden Y. Holloway"
         :Color "violet"

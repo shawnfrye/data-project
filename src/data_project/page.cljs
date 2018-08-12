@@ -5,34 +5,55 @@
             [data-project.parse :as parse]
             [data-project.scene :as scene]
             [data-project.upload :as upload]
+            [data-project.online :as online]
             [clojure.string :as str]))
 
 (enable-console-print!)
 
-(defonce app-state (r/atom #{}))
+(defonce selected-color (r/atom #{}))
+(defonce data-choice (r/atom :file))
 (defonce bg-color (r/atom #{"0xCCC"}))
+
+(defn get-names
+  [color]
+  (if (= :file @data-choice)
+    (parse/get-names color (parse/parse-data @upload/file-data))
+    (parse/get-names color online/data)))
+
+(defn list-colors
+  []
+  (if (= :file @data-choice)
+    (do
+      (println (first (parse/parse-data @upload/file-data)))
+      (parse/list-colors (parse/parse-data @upload/file-data)))
+    (do
+      (println (first online/data))
+      (parse/list-colors online/data))))
 
 (defn show-text
   [color]
-  (let [names (parse/get-names color (parse/parse-data @upload/file-data))]
+  (let [names (get-names color)]
     (doall
      (map
        #(scene/display-text % (color/name-to-hex color) (rand-int 100) (- (rand-int 100) 70)) names)))
   (reset! bg-color #{color})
-  (swap! app-state conj color))
+  (swap! selected-color conj color))
 
 (defn remove-text
   [color]
-  (let [names (parse/get-names color (parse/parse-data @upload/file-data))]
+  (let [names (get-names color)]
     (doall (map #(scene/remove-text % ) names)))
   (reset! bg-color #{"gray"})
-  (swap! app-state disj color))
+  (swap! selected-color disj color))
 
 (defn toggle
   [color]
-  (if (contains? @app-state color)
+  (if (contains? @selected-color color)
     (remove-text color)
     (show-text color)))
+
+(defn local-component []
+  [:input {:type "button" :value "Use local data" :onClick #(reset! data-choice :local)}])
 
 (defn button
   "Make a colorful button that will show the all the names which are in this
@@ -48,8 +69,9 @@
   []
   [:div {:id "button-panel"}
    [upload/input-component]
+   [local-component]
    [:div (map button
-              (parse/list-colors (parse/parse-data @upload/file-data)))]])
+              (list-colors))]])
 
 (defn dog-panel
   []
