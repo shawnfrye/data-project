@@ -5,3 +5,22 @@
     margin:0 auto;
     width: 700px;
 }
+
+#dog-panel {
+    background-color: #888888;
+    float: right;
+    height: 350px;
+    width: 50%;
+}
+
+#dog-button {
+    float: top;
+    height: 20px;
+}
+
+#button-panel {
+    background-color: #777777;
+    float: left;
+    height: 350px;
+    width: 50%;
+}

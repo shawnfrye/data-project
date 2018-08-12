@@ -43,15 +43,26 @@
 (defn dog-button
   []
   [:input {:key "dog" :type "button" :value "dog?" :onClick dog/update!}])
-  
+
+(defn button-panel
+  []
+  [:div {:id "button-panel"}
+   [upload/input-component]
+   [:div (map button
+              (parse/list-colors (parse/parse-data @upload/file-data)))]])
+
+(defn dog-panel
+  []
+  [:div {:id "dog-panel"}
+   [:div {:id "dog-button"}
+   [dog-button]]
+   (when (not-empty @dog/image)
+     [:img {:src @dog/image :height "300px" :width "300px"}])])
 
 ;; -------------------------
 ;; Views
 (defn home-page []
   [:div {:style {:background-color @bg-color}}
    [:h2 "Data-Project GL"]
-   [upload/input-component]
-   [dog-button]
-   (when (not-empty @dog/image) [:img {:src @dog/image}])
-   [:div (map button
-              (parse/list-colors (parse/parse-data @upload/file-data)))]])
+   [button-panel]
+   [dog-panel]])
