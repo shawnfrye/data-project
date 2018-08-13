@@ -84,7 +84,7 @@
 ;; -------------------------
 ;; Views
 (defn home-page []
-  [:div {:style {:background-color @bg-color}}
+  [:div {:style {:height 300 :background-color @bg-color}}
    [:h2 "Data-Project GL"]
    [button-panel]
    [dog-panel]])
