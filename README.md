@@ -11,7 +11,7 @@ There is a smaller test-data.txt file for testing.
 
 --Make a GUI.
 
---Bonuses
+## Bonuses
 
   --for creatively sorting/organizing the records.
   
