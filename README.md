@@ -25,7 +25,7 @@ There is a smaller test-data.txt file for testing.
   
   --showing off any skill by implementing a feature.
   
-   Note: this feature should be demonstratable in the running/results of the projet however it can be completely unrelated to the task.
+   Note: this feature should be demonstratable in the running/results of the project however it can be completely unrelated to the task.
 
 Here is my project:
 https://llsouder.github.io/data-project/
