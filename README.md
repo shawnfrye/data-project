@@ -5,21 +5,25 @@ Located here is a data file called *data-project.txt*
 
 There is a smaller test-data.txt file for testing.
 
-## the goal
+## the goals
 
 --Your task is to read the file and organize the records **by color**.
 
+--Use a git to track changes the project. Make lots of small commits.
+ 
+--Use maven
+
 --Make a GUI.
 
-## Bonuses
+--Make a Person object that is immutable. Color and Date should not be stored as strings.
 
-  --for creatively sorting/organizing the records.
-  
-  --Using a git to submit the project.
-  
-  --Using a build system like maven
-  
-  --Unit Test
+--Use comparable to sort by name, color, company.
+
+ --Unit Test the sort
+ 
+ --Write out XML format.
+
+## Bonuses
   
   --Functional style
   
