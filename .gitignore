@@ -15,3 +15,4 @@ pom.xml
 *.swp
 *.iml
 .idea
+/sFryeProject/SortBy/target/

@@ -2,10 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package gov.faa.sortbycolor;
+package gov.faa.sortby;
 
+import static gov.faa.sortby.LogToFile.log;
 import java.io.File;
-
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 /**
  *
  * @author sfrye
@@ -29,11 +35,18 @@ public class GUI extends javax.swing.JFrame {
     private void initComponents() {
 
         fileChooser = new javax.swing.JFileChooser();
+        buttonGroup = new javax.swing.ButtonGroup();
         inputFileField = new javax.swing.JTextField();
         buttonBrowse = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         outputFileField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
+        sortButton = new javax.swing.JButton();
+        sortByLabel = new javax.swing.JLabel();
+        colorBubble = new javax.swing.JRadioButton();
+        nameBubble = new javax.swing.JRadioButton();
+        dateBubble = new javax.swing.JRadioButton();
+        companyBubble = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,6 +66,33 @@ public class GUI extends javax.swing.JFrame {
         outputFileField.setText("Output XML File");
 
         saveButton.setText("Save As,,,");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+
+        sortButton.setText("Sort");
+        sortButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortButtonActionPerformed(evt);
+            }
+        });
+
+        sortByLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        sortByLabel.setText("Sort By:");
+
+        buttonGroup.add(colorBubble);
+        colorBubble.setText("Color");
+
+        buttonGroup.add(nameBubble);
+        nameBubble.setText("Name");
+
+        buttonGroup.add(dateBubble);
+        dateBubble.setText("Date");
+
+        buttonGroup.add(companyBubble);
+        companyBubble.setText("Company");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,8 +111,19 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonBrowse)
-                            .addComponent(saveButton))))
-                .addContainerGap(315, Short.MAX_VALUE))
+                            .addComponent(saveButton)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(178, 178, 178)
+                        .addComponent(sortByLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(205, 205, 205)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(colorBubble)
+                            .addComponent(sortButton)
+                            .addComponent(nameBubble)
+                            .addComponent(dateBubble)
+                            .addComponent(companyBubble))))
+                .addContainerGap(345, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,7 +138,19 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(outputFileField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(saveButton))
-                .addContainerGap(424, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(sortByLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(colorBubble)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(nameBubble)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dateBubble)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(companyBubble)
+                .addGap(36, 36, 36)
+                .addComponent(sortButton)
+                .addContainerGap(253, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,15 +168,32 @@ public class GUI extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_buttonBrowseActionPerformed
 
+    private void sortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortButtonActionPerformed
+        
+            // TODO add your handling code here:
+       
+        
+    }//GEN-LAST:event_sortButtonActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        // opens file chooser window 
+        int returnVal = fileChooser.showSaveDialog(this);
+        
+        if (returnVal == fileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            outputFileField.setText(file.toString());
+    }//GEN-LAST:event_saveButtonActionPerformed
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -131,6 +211,7 @@ public class GUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -139,13 +220,33 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBrowse;
+    private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JRadioButton colorBubble;
+    private javax.swing.JRadioButton companyBubble;
+    private javax.swing.JRadioButton dateBubble;
     private javax.swing.JFileChooser fileChooser;
-    private javax.swing.JTextField inputFileField;
+    protected static javax.swing.JTextField inputFileField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JRadioButton nameBubble;
     private javax.swing.JTextField outputFileField;
     private javax.swing.JButton saveButton;
+    private javax.swing.JButton sortButton;
+    private javax.swing.JLabel sortByLabel;
     // End of variables declaration//GEN-END:variables
+
+    
+
+
+
+
+
+
+
+
 }
