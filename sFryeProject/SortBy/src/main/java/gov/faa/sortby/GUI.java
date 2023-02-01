@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JProgressBar;
+
 /**
  *
  * @author sfrye
@@ -36,6 +38,8 @@ public class GUI extends javax.swing.JFrame {
 
         fileChooser = new javax.swing.JFileChooser();
         buttonGroup = new javax.swing.ButtonGroup();
+        donePopup = new javax.swing.JDialog();
+        doneLabel = new javax.swing.JLabel();
         inputFileField = new javax.swing.JTextField();
         buttonBrowse = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -47,6 +51,26 @@ public class GUI extends javax.swing.JFrame {
         nameBubble = new javax.swing.JRadioButton();
         dateBubble = new javax.swing.JRadioButton();
         companyBubble = new javax.swing.JRadioButton();
+
+        doneLabel.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        doneLabel.setText("Done!");
+
+        javax.swing.GroupLayout donePopupLayout = new javax.swing.GroupLayout(donePopup.getContentPane());
+        donePopup.getContentPane().setLayout(donePopupLayout);
+        donePopupLayout.setHorizontalGroup(
+            donePopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, donePopupLayout.createSequentialGroup()
+                .addContainerGap(128, Short.MAX_VALUE)
+                .addComponent(doneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
+        );
+        donePopupLayout.setVerticalGroup(
+            donePopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, donePopupLayout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addComponent(doneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -159,31 +183,40 @@ public class GUI extends javax.swing.JFrame {
     private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseActionPerformed
         // opens file chooser window 
         int returnVal = fileChooser.showOpenDialog(this);
-        
+        //sets file text into the textbox
         if (returnVal == fileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             inputFileField.setText(file.toString());
-            
-            
-        } 
+
+        }
     }//GEN-LAST:event_buttonBrowseActionPerformed
 
     private void sortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortButtonActionPerformed
-        
-            // TODO add your handling code here:
-       
-        
+
+        // runs sort and create method that reads text file, sorts, outputs to xml
+        SortBy.sortAndCreate();
+        donePopup.setBounds(100, 100, 100, 100);
+        log("warning", "Sorting Complete- XML File Created");
+
+        System.exit(0);
+
+
     }//GEN-LAST:event_sortButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // opens file chooser window 
         int returnVal = fileChooser.showSaveDialog(this);
-        
+
         if (returnVal == fileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            outputFileField.setText(file.toString());
+            //makes sure .XML is added to the end of filename to insure correct file type
+            String filename = fileChooser.getSelectedFile().toString();
+            if (!filename.endsWith(".xml")) {
+                filename += ".xml";
+                outputFileField.setText(filename);
+            }
     }//GEN-LAST:event_saveButtonActionPerformed
     }
+
     /**
      * @param args the command line arguments
      */
@@ -193,7 +226,7 @@ public class GUI extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -211,7 +244,7 @@ public class GUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -220,33 +253,24 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
-    
-    
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonBrowse;
     private javax.swing.ButtonGroup buttonGroup;
-    private javax.swing.JRadioButton colorBubble;
-    private javax.swing.JRadioButton companyBubble;
-    private javax.swing.JRadioButton dateBubble;
+    protected static javax.swing.JRadioButton colorBubble;
+    protected static javax.swing.JRadioButton companyBubble;
+    protected static javax.swing.JRadioButton dateBubble;
+    private javax.swing.JLabel doneLabel;
+    private javax.swing.JDialog donePopup;
     private javax.swing.JFileChooser fileChooser;
     protected static javax.swing.JTextField inputFileField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton nameBubble;
-    private javax.swing.JTextField outputFileField;
+    protected static javax.swing.JRadioButton nameBubble;
+    public static javax.swing.JTextField outputFileField;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton sortButton;
     private javax.swing.JLabel sortByLabel;
     // End of variables declaration//GEN-END:variables
-
-    
-
-
-
-
-
-
-
 
 }
